@@ -4,10 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\AgregateDhs2;
 use Filament\Widgets\ChartWidget;
-'SUSPECTED_MALARIA' => 0,
-            'TESTED_MALARIA' => 0,
-            'CONFIRMED_MALARIA' => 0,
-            'MALARIA_DEATHS' => 0,
+
 
 
 class AgregateDhs2Totals extends ChartWidget
