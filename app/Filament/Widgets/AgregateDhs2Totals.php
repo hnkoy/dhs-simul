@@ -4,6 +4,11 @@ namespace App\Filament\Widgets;
 
 use App\Models\AgregateDhs2;
 use Filament\Widgets\ChartWidget;
+'SUSPECTED_MALARIA' => 0,
+            'TESTED_MALARIA' => 0,
+            'CONFIRMED_MALARIA' => 0,
+            'MALARIA_DEATHS' => 0,
+
 
 class AgregateDhs2Totals extends ChartWidget
 {
@@ -17,11 +22,11 @@ class AgregateDhs2Totals extends ChartWidget
         $totals = $this->computeTotals();
 
         return sprintf(
-            'TESTED_MALARIA: %s | TESTED_VIH: %s | MALARIA_DEATHS: %s | DE_OUTPATIENT_TOTAL: %s',
+            'SUSPECTED_MALARIA: %s | TESTED_MALARIA: %s | CONFIRMED_MALARIA: %s | MALARIA_DEATHS: %s',
+            number_format($totals['SUSPECTED_MALARIA'] ?? 0),
             number_format($totals['TESTED_MALARIA'] ?? 0),
-            number_format($totals['TESTED_VIH'] ?? 0),
-            number_format($totals['MALARIA_DEATHS'] ?? 0),
-            number_format($totals['DE_OUTPATIENT_TOTAL'] ?? 0)
+            number_format($totals['CONFIRMED_MALARIA'] ?? 0),
+            number_format($totals['MALARIA_DEATHS'] ?? 0)
         );
     }
 
@@ -61,10 +66,10 @@ class AgregateDhs2Totals extends ChartWidget
     private function computeTotals(): array
     {
         $totals = [
+            'SUSPECTED_MALARIA' => 0,
             'TESTED_MALARIA' => 0,
-            'TESTED_VIH' => 0,
+            'CONFIRMED_MALARIA' => 0,
             'MALARIA_DEATHS' => 0,
-            'DE_OUTPATIENT_TOTAL' => 0,
         ];
 
         AgregateDhs2::chunk(100, function ($rows) use (&$totals) {
