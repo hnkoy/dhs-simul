@@ -13,13 +13,13 @@ class AgregateDhs2StatsOverview extends BaseWidget
         $totals = $this->computeTotals();
 
         return [
-            Stat::make('TESTED_MALARIA', number_format($totals['TESTED_MALARIA'] ?? 0))
+            Stat::make('SUSPECTED_MALARIA', number_format($totals['SUSPECTED_MALARIA'] ?? 0))
                 ->color('info'),
-            Stat::make('TESTED_VIH', number_format($totals['TESTED_VIH'] ?? 0))
+            Stat::make('TESTED_MALARIA', number_format($totals['TESTED_MALARIA'] ?? 0))
                 ->color('success'),
-            Stat::make('MALARIA_DEATHS', number_format($totals['MALARIA_DEATHS'] ?? 0))
+            Stat::make('CONFIRMED_MALARIA', number_format($totals['CONFIRMED_MALARIA'] ?? 0))
                 ->color('warning'),
-            Stat::make('DE_OUTPATIENT_TOTAL', number_format($totals['DE_OUTPATIENT_TOTAL'] ?? 0))
+            Stat::make('MALARIA_DEATHS', number_format($totals['MALARIA_DEATHS'] ?? 0))
                 ->color('danger'),
         ];
     }
@@ -27,10 +27,11 @@ class AgregateDhs2StatsOverview extends BaseWidget
     private function computeTotals(): array
     {
         $totals = [
+            'SUSPECTED_MALARIA' => 0,
             'TESTED_MALARIA' => 0,
-            'TESTED_VIH' => 0,
+            'CONFIRMED_MALARIA' => 0,
             'MALARIA_DEATHS' => 0,
-            'DE_OUTPATIENT_TOTAL' => 0,
+
         ];
 
         AgregateDhs2::chunk(100, function ($rows) use (&$totals) {
