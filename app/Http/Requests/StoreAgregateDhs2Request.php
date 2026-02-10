@@ -13,6 +13,13 @@ class StoreAgregateDhs2Request extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+{
+    if ($this->has('body') && is_array($this->body)) {
+        $this->merge($this->body);
+    }
+}
+
     public function rules(): array
     {
         return [
